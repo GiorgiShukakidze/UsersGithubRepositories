@@ -57,7 +57,7 @@
 		CB5EC4F526C7ED4F00467E82 /* RepositoryListCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryListCellView.swift; sourceTree = "<group>"; };
 		CB5EC4F726C7F3FD00467E82 /* StarredRepositoriesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarredRepositoriesView.swift; sourceTree = "<group>"; };
 		CB5EC4F926C7F47800467E82 /* StarredRepositoriesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarredRepositoriesViewModel.swift; sourceTree = "<group>"; };
-		CB5EC4FC26C80D6800467E82 /* PersistanceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PersistanceManager.swift; path = GithubRepos/ViewModels/PersistanceManager.swift; sourceTree = SOURCE_ROOT; };
+		CB5EC4FC26C80D6800467E82 /* PersistanceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PersistanceManager.swift; path = GithubRepos/Managers/PersistanceManager.swift; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */

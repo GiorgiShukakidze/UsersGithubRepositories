@@ -20,14 +20,18 @@ struct RepositoriesListView: View {
                 VStack {
                     SearchBarView(searchText: $repositoriesViewModel.userName)
                     Spacer()
-                    List(repositoriesViewModel.repositories, id: \.id) { repo in
-                        RepositoryListCellView(repo: repo, avatar: repositoriesViewModel.avatarImage(for: repo.owner))
+                    List {
+                        ForEach(repositoriesViewModel.repositories, id: \.id) { repo in
+                            RepositoryListCellView(repo: repo, avatar: repositoriesViewModel.avatarImage(for: repo.owner))
+                        }
+                        if repositoriesViewModel.hasMore {
+                            loadingMoreCell
                             .onAppear {
-                                if repositoriesViewModel.repositories.last == repo {
-                                    repositoriesViewModel.fetchNextPage()
-                                }
+                                repositoriesViewModel.fetchNextPage()
                             }
+                        }
                     }
+                    .overlay(loadingOverlay)
                     .onAppear { UIScrollView.appearance().bounces = true }
                 }
                 .navigationBarTitle("")
@@ -43,15 +47,36 @@ struct RepositoriesListView: View {
             }
         }
         .onAppear { repositoriesViewModel.setupBindings() }
-        .onChange(of: repositoriesViewModel.state) { status in
-            switch status {
-            case .error(let description):
-                alert = .init(title: "Error Loading Data", message: description)
-            default: break
-            }
+        .onChange(of: repositoriesViewModel.state) { state in
+            handleStateChange(state)
         }
         .alert(item: $alert) { alert in
             alert.alert()
+        }
+    }
+    
+    @ViewBuilder
+    var loadingOverlay: some View {
+        if repositoriesViewModel.state == .loading {
+            Color(.gray)
+                .opacity(0.2)
+        }
+    }
+    
+    var loadingMoreCell: some View {
+        HStack(alignment: .center) {
+            Spacer()
+            Text("Loading more...")
+                .foregroundColor(.blue)
+            Spacer()
+        }
+    }
+    
+    private func handleStateChange(_ state: UsersRepositoriesViewModel.State) {
+        switch state {
+        case .error(let description):
+            alert = .init(title: "Error Loading Data", message: description)
+        default: break
         }
     }
 }

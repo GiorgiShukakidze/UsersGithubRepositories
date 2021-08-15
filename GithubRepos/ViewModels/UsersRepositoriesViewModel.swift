@@ -12,6 +12,7 @@ class UsersRepositoriesViewModel: ObservableObject {
     @Published var repositories = [Repository]()
     @Published var state: State = .idle
     @Published var userName = ""
+    @Published var hasMore = false
     
     private let reposService = RepositoriesListService()
     private lazy var cancellables = Set<AnyCancellable>()
@@ -22,7 +23,6 @@ class UsersRepositoriesViewModel: ObservableObject {
         }
     }
     private lazy var currentPage = 1
-    private lazy var hasMore = true
     
     func setupBindings() {
         $userName
@@ -86,7 +86,7 @@ class UsersRepositoriesViewModel: ObservableObject {
     
     private func reset() {
         currentPage = 1
-        hasMore = true
+        hasMore = false
         repositories = []
         state = .idle
     }
